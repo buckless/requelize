@@ -22,4 +22,7 @@ module.exports.dropDb = () => {
 
       throw err
     })
+    .then(() => {
+      requelize.models = {}
+    })
 }

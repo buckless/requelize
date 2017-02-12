@@ -1,6 +1,6 @@
 const { test, requelize, dropDb } = require('./utils')
 
-test('basic commands', (t) => {
+test('relationships - failures', (t) => {
   t.plan(3)
 
   let Foo
@@ -11,20 +11,25 @@ test('basic commands', (t) => {
 
       Foo.index('name')
       Foo.index('createdAt')
+      Foo.hasOne('john', 'john', 'john_id')
 
       return requelize.sync()
     })
     .then(() => {
-      t.pass('database and model ready')
+      return Foo.getAll().embed({ baz: false })
+    })
+    .then((res) => {
+      t.equal(0, res.length, 'falsy tree')
 
-      return Foo.getAll()
+      return Foo.getAll().embed({ baz: true })
     })
     .then((res) => {
-      t.ok(Array.isArray(res) && res.length === 0, 'getAll / empty table')
-      return Foo.run()
+      t.equal(0, res.length, 'unknown join')
+
+      return Foo.getAll().embed({ john: true })
     })
     .then((res) => {
-      t.ok(Array.isArray(res) && res.length === 0, 'run / empty table')
+      t.equal(0, res.length, 'unknown model')
     })
     .catch(err => {
       t.fail(err)

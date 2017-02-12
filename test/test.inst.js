@@ -3,24 +3,25 @@ const Joi = require('Joi')
 const { test, requelize, dropDb } = require('./utils')
 
 test('instance - create and update', (t) => {
-  t.plan(5)
+  t.plan(4)
 
-  const M = requelize.model('foo', {
-    name: Joi.string(),
-    createdAt: Joi.date()
-  })
-
-  M.index('name')
-  M.index('createdAt')
-
+  let Foo
   let inst
 
   dropDb()
-    .then(() => requelize.sync())
     .then(() => {
-      t.pass('database and model ready')
+      Foo = requelize.model('foo', {
+        name: Joi.string(),
+        createdAt: Joi.date()
+      })
 
-      inst = new M()
+      Foo.index('name')
+      Foo.index('createdAt')
+
+      return requelize.sync()
+    })
+    .then(() => {
+      inst = new Foo()
 
       inst.name = 'foo'
 
