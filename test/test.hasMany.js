@@ -179,7 +179,7 @@ test('relationships - hasMany - nesting 2', (t) => {
       })
     })
     .then((res) => {
-      t.pass(res[0] && res[0].bar && res[0].bar.foo, 'embedded models')
+      t.ok(res[0] && res[0].bar && res[0].bar.foo, 'embedded models')
       t.equal(res[0].bar.id, bar.id, 'relation C - B')
       t.equal(res[0].bar.foo.id, foo.id, 'relation B - A')
     })

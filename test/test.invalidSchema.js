@@ -3,7 +3,7 @@ const Joi = require('joi')
 const { test, requelize, dropDb } = require('./utils')
 
 test('instance - invalid schema', (t) => {
-  t.plan(2)
+  t.plan(1)
 
   let Foo
   let inst
@@ -28,7 +28,7 @@ test('instance - invalid schema', (t) => {
       return inst.save()
     })
     .catch((err) => {
-      t.fail(err)
+      t.equal('RequelizeError', err.name, 'joi validation error')
     })
     .then(() => {
       t.end()
