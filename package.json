@@ -3,17 +3,19 @@
   "version": "0.0.0",
   "description": "RethinkDB ORM",
   "main": "index.js",
-  "repository": "https://github.com/gjuchault/requelize.git",
+  "repository": "https://github.com/buckless/requelize.git",
   "author": "Gabriel Juchault <gabriel.juchault@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "standard --fix && istanbul cover tape test/test.* | tap-difflet"
+    "test": "standard --fix && istanbul cover tape test/test.* | tap-difflet",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "joi": "^10.2.1",
     "rethinkdbdash": "^2.3.28"
   },
   "devDependencies": {
+    "coveralls": "^2.11.16",
     "istanbul": "^0.4.5",
     "standard": "^8.6.0",
     "tap-difflet": "^0.7.0",
