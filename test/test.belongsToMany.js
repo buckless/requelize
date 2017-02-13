@@ -165,7 +165,7 @@ test('relationships - belongsToMany - pivot', (t) => {
     .then(() => {
       Foo = requelize.model('foo', { name: Joi.string() })
       Bar = requelize.model('bar', { name: Joi.string() })
-      BarFoo = requelize.model('bar_foo', { foo: Joi.string(), bar: Joi.string(), pivot: Joi.object() })
+      BarFoo = requelize.model('bar_foo', { foo: Joi.string(), bar: Joi.string(), john: Joi.string() })
       BarFoo.index('foo')
       BarFoo.index('bar')
 
@@ -189,10 +189,10 @@ test('relationships - belongsToMany - pivot', (t) => {
     })
     .then(() => {
       return requelize.r.table('bar_foo').insert([
-        { foo: foo.id, bar: bar.id, pivot: { john: 'doe' } },
-        { foo: foo.id, bar: bar2.id, pivot: { john: 'doe' } },
-        { foo: foo2.id, bar: bar.id, pivot: { john: 'doe' } },
-        { foo: foo2.id, bar: bar2.id, pivot: { john: 'doe' } }
+        { foo: foo.id, bar: bar.id, john: 'doe' },
+        { foo: foo.id, bar: bar2.id, john: 'doe' },
+        { foo: foo2.id, bar: bar.id, john: 'doe' },
+        { foo: foo2.id, bar: bar2.id, john: 'doe' }
       ])
     })
     .then(() => {

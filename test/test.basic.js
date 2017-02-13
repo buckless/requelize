@@ -1,7 +1,7 @@
 const { test, requelize, dropDb } = require('./utils')
 
 test('basic commands', (t) => {
-  t.plan(3)
+  t.plan(4)
 
   let Foo
 
@@ -25,6 +25,10 @@ test('basic commands', (t) => {
     })
     .then((res) => {
       t.ok(Array.isArray(res) && res.length === 0, 'run / empty table')
+      return Foo.catch(err => console.log(err))
+    })
+    .then((res) => {
+      t.ok(Array.isArray(res) && res.length === 0, 'catch / empty table')
     })
     .catch((err) => {
       t.fail(err)
