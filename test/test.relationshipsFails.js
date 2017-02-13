@@ -31,7 +31,7 @@ test('relationships - failures', (t) => {
     .then((res) => {
       t.equal(0, res.length, 'unknown model')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {

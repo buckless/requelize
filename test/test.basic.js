@@ -26,7 +26,7 @@ test('basic commands', (t) => {
     .then((res) => {
       t.ok(Array.isArray(res) && res.length === 0, 'run / empty table')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {

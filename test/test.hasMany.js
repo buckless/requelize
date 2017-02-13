@@ -43,7 +43,7 @@ test('relationships - hasMany', (t) => {
       t.equal(res.bars[0].id, bar.id, 'relation A - B')
       t.equal(res.bars[1].id, bar2.id, 'relation A - B')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {
@@ -111,7 +111,7 @@ test('relationships - hasMany - nesting', (t) => {
       t.equal(res[0].bar.bazes[0].id, baz.id, 'relation B-C')
       t.equal(res[0].bar.bazes[1].id, baz2.id, 'relation B-C')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {
@@ -166,8 +166,7 @@ test('relationships - hasMany - nesting 2', (t) => {
       })
     })
     .then((res) => {
-      console.log(res[0])
-      t.ok(res[0] && res[0].bars && res[0].bars[0] && res[0].bars[0].baz, 'embedded models')
+      t.ok(res[0] && res[0].bars && res[0].bars[0] && (res[0].bars[0].baz || res[0].bars[1].baz), 'embedded models')
 
       res[0].bars = res[0].bars.sort((a, b) => a.name.localeCompare(b.name))
       t.equal(res[0].bars[0].id, bar.id, 'relation A - B')
@@ -184,7 +183,7 @@ test('relationships - hasMany - nesting 2', (t) => {
       t.equal(res[0].bar.id, bar.id, 'relation C - B')
       t.equal(res[0].bar.foo.id, foo.id, 'relation B - A')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {

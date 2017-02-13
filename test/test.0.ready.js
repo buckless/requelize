@@ -16,7 +16,7 @@ test('database/table/indexes creation', (t) => {
     .then(() => {
       t.pass('database and model ready')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {

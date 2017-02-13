@@ -60,6 +60,12 @@ test('relationships - belongsToMany', (t) => {
 
       t.equal(bar.id, res[0].bars[0].id, 'A - B')
     })
+    .catch((err) => {
+      t.fail(err)
+    })
+    .then(() => {
+      t.end()
+    })
 })
 
 test('relationships - belongsToMany - nesting', (t) => {
@@ -127,7 +133,7 @@ test('relationships - belongsToMany - nesting', (t) => {
       })
     })
     .then((res) => {
-      t.ok(res[0] && res[0].bars && res[0].bars[0] && res[0].bars[0].baz, 'embedded models')
+      t.ok(res[0] && res[0].bars && res[0].bars[0] && (res[0].bars[0].baz || res[0].bars[1].baz), 'embedded models')
 
       res[0].bars = res[0].bars.sort((a, b) => a.name.localeCompare(b.name))
 
@@ -135,7 +141,9 @@ test('relationships - belongsToMany - nesting', (t) => {
       t.equal(baz.id, res[0].bars[0].baz.id, 'B - C')
     })
     .catch((err) => {
-      console.log(err.stack)
       t.fail(err)
+    })
+    .then(() => {
+      t.end()
     })
 })

@@ -41,7 +41,7 @@ test('instance - create and update', (t) => {
     .then((res) => {
       t.equal(1, res.replaced, 'updated instance')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {

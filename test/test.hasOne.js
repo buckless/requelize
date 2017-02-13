@@ -40,7 +40,7 @@ test('relationships - hasOne', (t) => {
       t.ok(res && res.bar, 'embedded model')
       t.equal(res.bar.id, bar.id, 'relation A - B')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {
@@ -101,7 +101,7 @@ test('relationships - hasOne - nesting', (t) => {
       t.equal(res[0].bar.id, bar.id, 'relation A-B')
       t.equal(res[0].bar.baz.id, baz.id, 'relation B-C')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {

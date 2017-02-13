@@ -45,7 +45,7 @@ test('relationships - belongsTo', (t) => {
       t.ok(res && res.foo, 'embedded model')
       t.equal(res.foo.id, foo.id, 'relation B-A')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {
@@ -112,7 +112,7 @@ test('relationships - belongsTo - nesting', (t) => {
       t.equal(res[0].bar.id, bar.id, 'relation C - B')
       t.equal(res[0].bar.foo.id, foo.id, 'relation B - A')
     })
-    .catch(err => {
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {
