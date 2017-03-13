@@ -1,10 +1,15 @@
 {
   "name": "requelize",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "RethinkDB ORM",
   "main": "index.js",
   "repository": "https://github.com/buckless/requelize.git",
-  "author": "Gabriel Juchault <gabriel.juchault@gmail.com>",
+  "author": "Buckless <contact@buckless.com> https://buckless.com",
+  "contributors": [
+    "Gabriel Juchault <gabriel.juchault@gmail.com>",
+    "Axel Mousset <axel@mousset.me>",
+    "Lucas Soulier <lucas.soulier.utt@gmail.com>"
+  ],
   "license": "MIT",
   "scripts": {
     "test": "standard --fix && istanbul cover tape test/test.* | tap-difflet",
