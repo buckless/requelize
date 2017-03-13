@@ -39,7 +39,7 @@ test('instance - create and update', (t) => {
       return inst.save()
     })
     .then((res) => {
-      t.equal(1, res.replaced, 'updated instance')
+      t.equal('bar', res.name, 'updated instance')
     })
     .catch((err) => {
       t.fail(err)

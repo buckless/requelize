@@ -27,9 +27,6 @@ test('instance - invalid schema', (t) => {
 
       return inst.save()
     })
-    .then(() => {
-      console.log('success')
-    })
     .catch((err) => {
       t.equal('RequelizeError', err.name, 'joi validation error')
     })
