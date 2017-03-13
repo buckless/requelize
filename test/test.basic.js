@@ -1,7 +1,7 @@
 const { test, requelize, dropDb } = require('./utils')
 
 test('basic commands', (t) => {
-  t.plan(4)
+  t.plan(6)
 
   let Foo
 
@@ -29,6 +29,14 @@ test('basic commands', (t) => {
     })
     .then((res) => {
       t.ok(Array.isArray(res) && res.length === 0, 'catch / empty table')
+      return Foo.embed()
+    })
+    .then((res) => {
+      t.ok(Array.isArray(res) && res.length === 0, 'embed without arg / empty table')
+      return Foo.getAll().filter(() => true)
+    })
+    .then((res) => {
+      t.ok(Array.isArray(res) && res.length === 0, 'embed without arg / empty table')
     })
     .catch((err) => {
       t.fail(err)

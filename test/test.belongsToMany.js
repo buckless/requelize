@@ -153,7 +153,6 @@ test('relationships - belongsToMany - pivot', (t) => {
 
   let Foo
   let Bar
-  let BarFoo
 
   let foo
   let foo2
@@ -165,9 +164,6 @@ test('relationships - belongsToMany - pivot', (t) => {
     .then(() => {
       Foo = requelize.model('foo', { name: Joi.string() })
       Bar = requelize.model('bar', { name: Joi.string() })
-      BarFoo = requelize.model('bar_foo', { foo: Joi.string(), bar: Joi.string(), john: Joi.string() })
-      BarFoo.index('foo')
-      BarFoo.index('bar')
 
       Foo.belongsToMany('bar', 'bars')
       Bar.belongsToMany('foo', 'foos')
@@ -189,10 +185,10 @@ test('relationships - belongsToMany - pivot', (t) => {
     })
     .then(() => {
       return requelize.r.table('bar_foo').insert([
-        { foo: foo.id, bar: bar.id, john: 'doe' },
-        { foo: foo.id, bar: bar2.id, john: 'doe' },
-        { foo: foo2.id, bar: bar.id, john: 'doe' },
-        { foo: foo2.id, bar: bar2.id, john: 'doe' }
+        { foo: foo.id, bar: bar.id, pivot: { john: 'doe' } },
+        { foo: foo.id, bar: bar2.id, pivot: { john: 'doe' } },
+        { foo: foo2.id, bar: bar.id, pivot: { john: 'doe' } },
+        { foo: foo2.id, bar: bar2.id, pivot: { john: 'doe' } }
       ])
     })
     .then(() => {
@@ -206,7 +202,8 @@ test('relationships - belongsToMany - pivot', (t) => {
       res[0].bars = res[0].bars.sort((a, b) => a.name.localeCompare(b.name))
 
       t.equal(bar.id, res[0].bars[0].id, 'A - B')
-      t.deepEqual({ john: 'doe' }, res[0].bars[0]._pivot, 'embedded pivot')
+      console.log(res[0].bars[0]._pivot)
+      t.deepEqual({ john: 'doe' }, res[0].bars[0]._pivot.foo, 'embedded pivot')
     })
     .catch((err) => {
       t.fail(err)
