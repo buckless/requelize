@@ -202,7 +202,6 @@ test('relationships - belongsToMany - pivot', (t) => {
       res[0].bars = res[0].bars.sort((a, b) => a.name.localeCompare(b.name))
 
       t.equal(bar.id, res[0].bars[0].id, 'A - B')
-      console.log(res[0].bars[0]._pivot)
       t.deepEqual({ john: 'doe' }, res[0].bars[0]._pivot.foo, 'embedded pivot')
     })
     .catch((err) => {
