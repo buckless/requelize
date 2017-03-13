@@ -1,24 +1,44 @@
 const { test, requelize, dropDb } = require('./utils')
 
 test('basic commands', (t) => {
-  t.plan(2)
+  t.plan(6)
 
-  const M = requelize.model('foo')
-
-  M.index('name')
-  M.index('createdAt')
+  let Foo
 
   dropDb()
-    .then(() => requelize.sync())
+    .then(() => {
+      Foo = requelize.model('foo')
+
+      Foo.index('name')
+      Foo.index('createdAt')
+
+      return requelize.sync()
+    })
     .then(() => {
       t.pass('database and model ready')
 
-      return M.getAll()
+      return Foo.getAll()
     })
     .then((res) => {
-      t.ok(Array.isArray(res) && res.length === 0, 'empty table')
+      t.ok(Array.isArray(res) && res.length === 0, 'getAll / empty table')
+      return Foo.run()
     })
-    .catch(err => {
+    .then((res) => {
+      t.ok(Array.isArray(res) && res.length === 0, 'run / empty table')
+      return Foo.catch(err => console.log(err))
+    })
+    .then((res) => {
+      t.ok(Array.isArray(res) && res.length === 0, 'catch / empty table')
+      return Foo.embed()
+    })
+    .then((res) => {
+      t.ok(Array.isArray(res) && res.length === 0, 'embed without arg / empty table')
+      return Foo.getAll().filter(() => true)
+    })
+    .then((res) => {
+      t.ok(Array.isArray(res) && res.length === 0, 'embed without arg / empty table')
+    })
+    .catch((err) => {
       t.fail(err)
     })
     .then(() => {

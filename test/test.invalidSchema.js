@@ -3,31 +3,35 @@ const Joi = require('joi')
 const { test, requelize, dropDb } = require('./utils')
 
 test('instance - invalid schema', (t) => {
-  t.plan(2)
+  t.plan(1)
 
-  const M = requelize.model('foo', {
-    name: Joi.string(),
-    createdAt: Joi.date()
-  })
-
-  M.index('name')
-  M.index('createdAt')
-
+  let Foo
   let inst
 
   dropDb()
-    .then(() => requelize.sync())
     .then(() => {
-      t.pass('database and model ready')
+      Foo = requelize.model('foo', {
+        name: Joi.string(),
+        createdAt: Joi.date()
+      })
 
-      inst = new M()
+      Foo.index('name')
+      Foo.index('createdAt')
+
+      return requelize.sync()
+    })
+    .then(() => {
+      inst = new Foo()
 
       inst.name = 2
 
       return inst.save()
     })
-    .catch(err => {
-      t.equal('ValidationError', err.name, 'joi validation error')
+    .then(() => {
+      console.log('success')
+    })
+    .catch((err) => {
+      t.equal('RequelizeError', err.name, 'joi validation error')
     })
     .then(() => {
       t.end()

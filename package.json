@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "test": "standard --fix && istanbul cover tape test/test.* | tap-difflet",
+    "test:nolint": "istanbul cover tape test/test.* | tap-difflet",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
