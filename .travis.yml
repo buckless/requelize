@@ -8,10 +8,10 @@ addons:
   rethinkdb: 2.3
 
 install:
-  - npm install
+  - yarn install
 
 script:
-  - npm test
+  - yarn test
 
 after_script:
-  - npm run coveralls
+  - yarn run coveralls
