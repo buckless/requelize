@@ -7,9 +7,6 @@ node_js:
 addons:
   rethinkdb: 2.3
 
-install:
-  - npm install
-
 script:
   - npm test
 
