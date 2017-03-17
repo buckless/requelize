@@ -7,14 +7,8 @@ node_js:
 addons:
   rethinkdb: 2.3
 
-before_install:
-  - ls yarn.lock
-
-install:
-  - yarn install
-
 script:
-  - yarn test
+  - npm test
 
 after_script:
-  - yarn run coveralls
+  - npm run coveralls
