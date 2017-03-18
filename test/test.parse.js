@@ -55,3 +55,38 @@ test('instance - parse result', (t) => {
       t.end()
     })
 })
+
+test('no parsing', (t) => {
+  t.plan(1)
+
+  let Foo
+
+  dropDb()
+    .then(() => {
+      Foo = requelize.model('foo', { name: Joi.string() })
+
+      return requelize.sync()
+    })
+    .then(() => {
+      let fooA = new Foo({ name: 'bar' })
+      let fooB = new Foo({ name: 'baz' })
+
+      return Promise.all([ fooA.save(), fooB.save() ])
+    })
+    .then(() => {
+      return Foo
+          .parse(false)
+          .map((user) => 1)
+          .reduce((a, b) => a.add(b))
+          .run()
+          .then((res) => {
+            t.equal(2, res)
+          })
+    })
+    .catch((err) => {
+      t.fail(err)
+    })
+    .then(() => {
+      t.end()
+    })
+})
