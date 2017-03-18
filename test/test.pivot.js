@@ -36,8 +36,8 @@ test('instance - pivot', (t) => {
     .then(() => Foo.embed({ bars: true }))
     .then((res) => {
       t.ok(Array.isArray(res[0].bars), 'has bars')
-      t.equal('object', typeof res[0].bars[0].getPivot('foo'), 'has pivot')
-      t.equal('pivot', res[0].bars[0].getPivot('foo').data, 'has pivot data')
+      t.equal('object', typeof res[0].bars[0].getPivot(), 'has pivot')
+      t.equal('pivot', res[0].bars[0].getPivot().data, 'has pivot data')
     })
     .catch((err) => {
       t.fail(err)
@@ -92,8 +92,8 @@ test('instance - pivot - embed', (t) => {
     .then(() => Foo.embed({ bars: { baz: true } }))
     .then((res) => {
       t.ok(Array.isArray(res[0].bars), 'has bars')
-      t.equal('object', typeof res[0].bars[0].getPivot('foo'), 'has pivot')
-      t.equal('pivot', res[0].bars[0].getPivot('foo').data, 'has pivot data')
+      t.equal('object', typeof res[0].bars[0].getPivot(), 'has pivot')
+      t.equal('pivot', res[0].bars[0].getPivot().data, 'has pivot data')
     })
     .catch((err) => {
       t.fail(err)
@@ -149,8 +149,8 @@ test('instance - pivot - with multiple models', (t) => {
     .then((res) => {
       t.ok(Array.isArray(res[0].bazes), 'has bars')
       t.ok(Array.isArray(res[0].foos), 'has bars')
-      t.equal('pivotForBaz', res[0].bazes[0].getPivot('bar').data)
-      t.equal('pivot', res[0].foos[0].getPivot('bar').data)
+      t.equal('pivotForBaz', res[0].bazes[0].getPivot().data)
+      t.equal('pivot', res[0].foos[0].getPivot().data)
     })
     .catch((err) => {
       t.fail(err)
