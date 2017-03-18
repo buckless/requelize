@@ -65,3 +65,28 @@ test('changefeeds', (t) => {
       t.fail(err)
     })
 })
+
+test('original changefeeds', (t) => {
+  t.plan(1)
+
+  let Foo
+
+  dropDb()
+    .then(() => {
+      Foo = requelize.model('foo', {
+        name: Joi.string()
+      })
+
+      return requelize.sync()
+    })
+    .then(() => {
+      Foo.changes((_, cursor) => {
+        console.log('done')
+        t.equal('function', typeof cursor.each)
+        t.end()
+      })
+    })
+    .catch((err) => {
+      t.fail(err)
+    })
+})

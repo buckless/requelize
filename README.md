@@ -7,7 +7,7 @@ yarn add requelize
 yarn add joi
 ```
 
-joi is a peer dependency to create schemas
+[joi](https://github.com/hapijs/joi) is a peer dependency to create schemas
 
 ## Configuration
 
@@ -15,7 +15,7 @@ joi is a peer dependency to create schemas
 const requelize = require('requelize')({ host: 'localhost', db: 'myApp' })
 ```
 
-`opts` are passed to rethinkdbdash options
+`opts` are passed to [rethinkdbdash](https://github.com/neumino/rethinkdbdash) options
 
 ## Model definition
 
@@ -79,8 +79,6 @@ user
 ```
 
 ## Relationships
-
-Basic relationships are supported in requelize.
 
 ### hasOne
 
@@ -207,8 +205,8 @@ A proper way to do it would be to use: `rights.find(right => right.id === rightA
 
 ## Changefeeds
 
-requelize provide a changefeed structure with the library `rxjs` and Observables.
-You are free to use original cursors if you want
+requelize provide a changefeed structure with the library [rxjs](https://github.com/Reactive-Extensions/RxJS) and Observables.
+You are free to use original cursors if you want (by using `changes((err, cursor) => { ... })` and not `.feed()`)
 
 ```js
 let feed = User.feed()
