@@ -8,7 +8,7 @@ addons:
   rethinkdb: '2.3.4'
 
 before_script:
-  - yarn install joi
+  - yarn add joi
 
 script:
   - yarn test
