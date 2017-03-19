@@ -23,16 +23,15 @@ test('relationships - failures', (t) => {
 
       return Foo.getAll().embed({ baz: true })
     })
-    .then((res) => {
-      t.equal(0, res.length, 'unknown join')
+    .catch((err) => {
+      t.equal('Missing relationship foo.baz', err.message)
 
       return Foo.getAll().embed({ john: true })
     })
-    .then((res) => {
-      t.equal(0, res.length, 'unknown model')
-    })
     .catch((err) => {
-      t.fail(err)
+      t.equal('Missing model john in relationship foo.john', err.message)
+
+      return Promise.resolve()
     })
     .then(() => {
       t.end()

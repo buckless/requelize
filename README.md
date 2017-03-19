@@ -17,6 +17,15 @@ const requelize = require('requelize')({ host: 'localhost', db: 'myApp' })
 
 `opts` are passed to [rethinkdbdash](https://github.com/neumino/rethinkdbdash) options
 
+### Debugging
+
+requelize uses [debug](https://github.com/visionmedia/debug) to debug your apps.
+You can use the `DEBUG` environment variable as follows:
+
+```sh
+DEBUG=requelize:* yarn start
+```
+
 ## Model definition
 
 ```js
