@@ -1,6 +1,6 @@
 {
   "name": "requelize",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "RethinkDB ORM",
   "main": "index.js",
   "repository": "https://github.com/buckless/requelize.git",
@@ -29,6 +29,6 @@
     "tape": "^4.6.3"
   },
   "peerDependencies": {
-    "joi": "10.x"
+    "joi": "^10.2.2"
   }
 }

@@ -2,8 +2,8 @@ const Joi = require('joi')
 
 const { test, requelize, dropDb } = require('./utils')
 
-test('hooks - preSave', (t) => {
-  t.plan(2)
+test('hooks - saving', (t) => {
+  t.plan(3)
 
   let Foo
   let inst
@@ -18,8 +18,12 @@ test('hooks - preSave', (t) => {
       Foo.index('createdAt')
       Foo.index('updatedAt')
 
-      Foo.on('preSave', (inst) => {
+      Foo.on('saving', (inst) => {
         inst.updatedAt = new Date()
+      })
+
+      Foo.on('saving', () => {
+        t.pass('multiple events on the same model')
       })
 
       return requelize.sync()
@@ -43,7 +47,7 @@ test('hooks - preSave', (t) => {
     })
 })
 
-test('hooks - postSave', (t) => {
+test('hooks - saved', (t) => {
   t.plan(2)
 
   let Foo
@@ -57,7 +61,7 @@ test('hooks - postSave', (t) => {
 
       Foo.index('createdAt')
 
-      Foo.on('postSave', (inst) => {
+      Foo.on('saved', (inst) => {
         inst.saved = true
       })
 
@@ -82,7 +86,7 @@ test('hooks - postSave', (t) => {
     })
 })
 
-test('hooks - preValidate', (t) => {
+test('hooks - validating', (t) => {
   t.plan(1)
 
   let Foo
@@ -94,7 +98,7 @@ test('hooks - preValidate', (t) => {
         foo: Joi.equal(true)
       })
 
-      Foo.on('preValidate', (inst) => {
+      Foo.on('validating', (inst) => {
         inst.foo = true
       })
 
@@ -116,7 +120,7 @@ test('hooks - preValidate', (t) => {
     })
 })
 
-test('hooks - postValidate', (t) => {
+test('hooks - validated', (t) => {
   t.plan(1)
 
   let Foo
@@ -126,7 +130,7 @@ test('hooks - postValidate', (t) => {
     .then(() => {
       Foo = requelize.model('foo')
 
-      Foo.on('postValidate', (inst) => {
+      Foo.on('validated', (inst) => {
         inst.foo = true
       })
 
