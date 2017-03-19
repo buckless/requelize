@@ -39,3 +39,33 @@ test('deletion', (t) => {
       t.end()
     })
 })
+
+test('deletion - inexistant document', (t) => {
+  t.plan(1)
+
+  let Foo
+  let foo
+
+  dropDb()
+    .then(() => {
+      Foo = requelize.model('foo', {
+        name: Joi.string()
+      })
+
+      return requelize.sync()
+    })
+    .then(() => {
+      foo = new Foo({ name: 'bar' })
+
+      return foo.delete()
+    })
+    .then(() => {
+      t.ok(!foo.id, 'deleted document')
+    })
+    .catch((err) => {
+      t.fail(err)
+    })
+    .then(() => {
+      t.end()
+    })
+})
