@@ -3,8 +3,7 @@
 ## Installation
 
 ```sh
-yarn add requelize
-yarn add joi
+yarn add requelize joi
 ```
 
 [joi](https://github.com/hapijs/joi) is a peer dependency to create schemas
