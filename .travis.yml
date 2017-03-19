@@ -2,13 +2,22 @@ language: node_js
 sudo: false
 
 node_js:
-- 7
+  - 7
 
 addons:
-  rethinkdb: 2.3
+  rethinkdb: '2.3.4'
 
 script:
   - npm test
 
 after_script:
   - npm run coveralls
+
+deploy:
+  provider: npm
+  email: gabriel.juchault@gmail.com
+  api_key:
+    secure: G2optGxe2W8CEounfPgIjQmWY2Y01i9J+Fqe0eRwWVdtc8g0OgRSScK9ovBP7v067GyijbxCL8SECXCPNOflKeGpSrYmMIjGLwIwAWtcOhJjgnpJIJZ2EngmPYrOWgten6PsQKYbxCM2mGst0C/pFdVtQhRJAME4uHxMCsQ4aqa4ud5YUMp7BdDG86Rgp51ei0eO6rE/SLnD5EPXXzQogChLPKSHvCUobmPX1GHIDT3lgcUX0tBb0cug0EeOIBZsTy9URoT/Db876S4ysvKpwcNX7A0hQA9QESCDhw6dWLZ9eXpJCXmZZTajNj8NcDnLIh7F1UKAAQn6m4yGhHJLOqiniI6AkGoqZMTVggttgaZ7/ZLkF6b8Jxqh1bG/KpgtDF3Dzpijw4iE1dIbggP1YUgb+NG/25ayYtuN3HuBgNv8LRRCDc3/etysQgldgcJzpQYqWzjzDy6keXC5HgugGHTTPtr26Ls25EGhZrdphHObXaqrYHi2kYs6Te7iS5HavciHnxqEdVYStruSDTzE6MMMLkRTktQ1COxds8dszP2FjX2nbqfQ76fSsuocQUcZYxZHpO5jt92rbC1x3dEiOi7iYbCFja+uH/sJIZOvF77DmTCbvzpolN8erRv1e24xcWYtHoGyEs2/jyz4iuFobelH4vqfYHJlkR/Rl8Bkc6w=
+  on:
+    branch: master
+    repo: buckless/requelize
