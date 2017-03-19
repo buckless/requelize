@@ -81,7 +81,6 @@ test('original changefeeds', (t) => {
     })
     .then(() => {
       Foo.changes((_, cursor) => {
-        console.log('done')
         t.equal('function', typeof cursor.each)
         t.end()
       })

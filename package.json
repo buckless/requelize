@@ -17,6 +17,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
+    "debug": "^2.6.3",
     "joi": "^10.2.1",
     "rethinkdbdash": "^2.3.28",
     "rxjs": "^5.2.0"
