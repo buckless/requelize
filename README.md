@@ -256,18 +256,22 @@ Note: in the example above, the subscription is also closed
 
 ## Hooks
 
-A few hooks are available in requelize: `preValidate`, `postValidate`, `preSave` and `postSave`
+A few hooks are available in requelize: `validating`, `validated`, `saving`, `saved`, `creating`, `created`, `updating` and `updated`.
 
 ```js
-User.on('preSave', (user) => {
+User.on('saving', (user) => {
   user.editedAt = new Date()
+})
+
+User.on('creating', (user) => {
+  user.createdAt = new Date()
 })
 ```
 
 Hooks also support promises
 
 ```js
-User.on('preSave', (user) => {
+User.on('saving', (user) => {
   return somePromise()
     .then(() => {
       user.foo = 'bar'
