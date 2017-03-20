@@ -91,41 +91,41 @@ user
 ### hasOne
 
 ```js
-User.hasOne('Role', 'role', 'user_id')
+User.hasOne('Role', 'role', 'User_id')
 ```
 
 Arguments are:
 
   1. Relation Model name (the first argument of `requelize.model`)
   2. The virutal field on the instance (so that you have `user.role.id`)
-  3. The foreign key to use (usually: `model_id` or `modelId` or `Model_id`)
+  3. The foreign key to use. requelize defaults to `SelfModel_id`
 
 ### hasMany
 
 ```js
-User.hasMany('Post', 'posts', 'user_id')
+User.hasMany('Post', 'posts', 'User_id')
 ```
 
 Arguments are:
 
   1. Relation Model name (the first argument of `requelize.model`)
   2. The virutal field on the instance (so that you have `user.posts[0].id`)
-  3. The foreign key to use (usually: `model_id` or `modelId` or `Model_id`)
+  3. The foreign key to use. requelize defaults to `SelfModel_id`
 
 The foreign key have to be equal to the local key used on `belongsTo` method
 
 ### belongsTo
 
 ```js
-Role.belongsTo('User', 'user', 'user_id')
-Post.belongsTo('User', 'user', 'user_id')
+Role.belongsTo('User', 'user', 'User_id')
+Post.belongsTo('User', 'user', 'User_id')
 ```
 
 Arguments are:
 
   1. Relation Model name (the first argument of `requelize.model`)
   2. The virutal field on the instance (so that you have `role.user.id` or `post.user.id`)
-  3. The local key to use (usually: `model_id` or `modelId` or `Model_id`)
+  3. The local key to use (usually: `model_id` or `modelId` or `Model_id`). requelize defaults to `Model_id`
 
 ### belongsToMany
 
