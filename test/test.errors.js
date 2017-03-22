@@ -16,7 +16,7 @@ test('document not found error', (t) => {
     })
     .catch((err) => {
       t.equal('RequelizeError', err.name)
-      t.equal('DocumentNotFound', err.details)
+      t.equal('DocumentNotFound', err.message)
       t.end()
     })
 })
