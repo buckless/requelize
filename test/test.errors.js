@@ -1,7 +1,7 @@
 const { test, requelize, dropDb } = require('./utils')
 
-test('basic commands', (t) => {
-  t.plan(6)
+test('document not found error', (t) => {
+  t.plan(2)
 
   let Foo
 
@@ -14,10 +14,9 @@ test('basic commands', (t) => {
     .then(() => {
       return Foo.get('foo').run()
     })
-    .then((res) => {
-      console.log(res)
-    })
     .catch((err) => {
-      console.log(err)
+      t.equal('RequelizeError', err.name)
+      t.equal('DocumentNotFound', err.details)
+      t.end()
     })
 })
