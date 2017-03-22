@@ -211,6 +211,66 @@ User
 Note: a race condition exists here because of `users[0]` and `rights[0]`.
 A proper way to do it would be to use: `rights.find(right => right.id === rightA.id)`
 
+### Custom joins tables — three-way relationships
+
+You can provide your own model to join tables:
+
+```js
+User = requelize.model('User', { name: Joi.string() })
+Role = requelize.model('Role', { name: Joi.string() })
+Period = requelize.model('Period', { name: Joi.string() })
+UserRole = requelize.model('UserRole')
+
+// You must define this by yourself
+UserRole.index('User')
+UserRole.index('Role')
+
+Period.hasMany('UserRole', 'userroles')
+UserRole.belongsTo('Period', 'period')
+
+User.belongsToMany('Role', 'roles', 'UserRole')
+Role.belongsToMany('User', 'users', 'UserRole')
+```
+
+Note: you must add indexes (which are done by belongsToMany when no custom table is provided)
+
+To save a three-way document:
+
+```js
+user = new User({ name: 'John Doe' })
+role = new Role({ name: 'Admin' })
+period = new Period({ name: 'Infinity' })
+userRole = new UserRole()
+
+user.roles = [
+  {
+    // this is the related document
+    document: role,
+    // this is the join document
+    through: userRole,
+    // this will be used when saving the join document
+    saveAll: { period: true }
+  }
+]
+
+userRole.period = period
+
+return user.saveAll({
+  roles: true
+})
+```
+
+To retrieve a three-way document:
+
+```js
+User
+  .embed({ roles: { _through: { period: true } } })
+  .nth(0)
+  .then((res) => {
+    console.log(res.roles[0]._through.period)
+  })
+```
+
 ## Changefeeds
 
 requelize provide a changefeed structure with the library [rxjs](https://github.com/Reactive-Extensions/RxJS) and Observables.
