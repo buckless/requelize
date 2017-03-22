@@ -1,5 +1,4 @@
 const Joi = require('joi')
-
 const { test, requelize, dropDb } = require('./utils')
 
 test('instance - create and update', (t) => {

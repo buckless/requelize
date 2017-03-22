@@ -1,5 +1,3 @@
-// const Joi = require('joi')
-
 const { test, requelize, dropDb } = require('./utils')
 
 test('instance - pivot', (t) => {
