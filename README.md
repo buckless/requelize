@@ -221,9 +221,8 @@ Role = requelize.model('Role', { name: Joi.string() })
 Period = requelize.model('Period', { name: Joi.string() })
 UserRole = requelize.model('UserRole')
 
-// You must define this by yourself
-UserRole.index('User')
-UserRole.index('Role')
+// This is important (creates indexes for relation fields)
+UserRole.customJoinTable('User', 'Role')
 
 Period.hasMany('UserRole', 'userroles')
 UserRole.belongsTo('Period', 'period')
@@ -231,8 +230,6 @@ UserRole.belongsTo('Period', 'period')
 User.belongsToMany('Role', 'roles', 'UserRole')
 Role.belongsToMany('User', 'users', 'UserRole')
 ```
-
-Note: you must add indexes (which are done by belongsToMany when no custom table is provided)
 
 To save a three-way document:
 

@@ -21,8 +21,7 @@ test('three-way relationship - saveAll', (t) => {
       Period = requelize.model('Period', { name: Joi.string() })
       UserRole = requelize.model('UserRole')
 
-      UserRole.index('User')
-      UserRole.index('Role')
+      UserRole.customJoinTable('User', 'Role')
 
       Period.hasMany('UserRole', 'userroles')
       UserRole.belongsTo('Period', 'period')
@@ -88,8 +87,7 @@ test('three-way relationship - embed', (t) => {
       Period = requelize.model('Period', { name: Joi.string() })
       UserRole = requelize.model('UserRole')
 
-      UserRole.index('User')
-      UserRole.index('Role')
+      UserRole.customJoinTable('User', 'Role')
 
       Period.hasMany('UserRole', 'userroles')
       UserRole.belongsTo('Period', 'period')
