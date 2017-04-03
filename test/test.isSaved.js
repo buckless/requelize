@@ -15,12 +15,12 @@ test('isSaved', (t) => {
     .then(() => {
       foo = new Foo()
 
-      t.equal(false, foo.isSaved())
+      t.equal(false, foo.isSaved(), 'isSaved = false before saving')
 
       return foo.save()
     })
     .then(() => {
-      t.equal(true, foo.isSaved())
+      t.equal(true, foo.isSaved(), 'isSaved = true after saving')
     })
     .catch((err) => {
       t.fail(err)
