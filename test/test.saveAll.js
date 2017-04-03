@@ -93,3 +93,52 @@ test('instance - saveAll', (t) => {
       t.end()
     })
 })
+
+test('instance - resave', (t) => {
+  t.plan(2)
+
+  let Foo
+  let Bar
+  let foo
+  let bar
+  let bar2
+
+  dropDb()
+    .then(() => {
+      Foo = requelize.model('foo', {
+        name: Joi.string()
+      })
+
+      Bar = requelize.model('bar', {
+        name: Joi.string()
+      })
+
+      Foo.hasMany('bar', 'bars', 'foo_id')
+      Bar.belongsTo('foo', 'foo', 'foo_id')
+
+      return requelize.sync()
+    })
+    .then(() => {
+      foo = new Foo({ name: 'foo' })
+      bar = new Bar({ name: 'bar' })
+      bar2 = new Bar({ name: 'bar2' })
+
+      return bar.save()
+    })
+    .then(() => {
+      foo.bars = [ bar, bar2 ]
+
+      return foo.saveAll({ bars: true })
+    })
+    .then(() => Bar.run())
+    .then((res) => {
+      t.equal(2, res.length, 'only two results')
+      t.equal(true, res[0].isSaved() && res[1].isSaved(), 'isSaved results')
+    })
+    .catch((err) => {
+      t.fail(err)
+    })
+    .then(() => {
+      t.end()
+    })
+})
