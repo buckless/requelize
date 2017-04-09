@@ -174,6 +174,22 @@ user.saveAll({
 })
 ```
 
+You can also save an array of ids with hasMany or belongsToMany:
+
+```js
+user.role = roleA
+user.rights = [ rightA.id, rightB.id ]
+
+user.saveAll({
+  role: true,
+  rights: true
+})
+```
+
+Note: be careful that user.rights will be repopulated with rightA and rightB, but those objects will not
+be the same as the original rightA and rightB.
+That means `rightA.User_id` is undefined (because saveAll knows nothing about it), but `user.rights[0].User_id` will be set.
+
 Tree has the same possibilities that you have in `embed`
 
 ### pivot data

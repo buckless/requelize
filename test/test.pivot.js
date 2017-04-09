@@ -38,6 +38,7 @@ test('instance - pivot', (t) => {
       t.equal('pivot', res[0].bars[0].getPivot().data, 'has pivot data')
     })
     .catch((err) => {
+      console.log(err)
       t.fail(err)
     })
     .then(() => {
