@@ -79,7 +79,7 @@ test('no parsing', (t) => {
           .reduce((a, b) => a.add(b))
           .run()
           .then((res) => {
-            t.equal(2, res)
+            t.equal(2, res, 'map reduce working')
           })
     })
     .catch((err) => {
