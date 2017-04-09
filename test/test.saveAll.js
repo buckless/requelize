@@ -94,6 +94,78 @@ test('instance - saveAll', (t) => {
     })
 })
 
+test('instance - saveAll with ids only', (t) => {
+  t.plan(6)
+
+  let Foo
+  let Baz
+  let Boz
+  let foo
+  let baz
+  let boz
+
+  dropDb()
+    .then(() => {
+      Foo = requelize.model('foo', {
+        name: Joi.string()
+      })
+
+      Baz = requelize.model('baz', {
+        name: Joi.string()
+      })
+
+      Boz = requelize.model('boz', {
+        name: Joi.string()
+      })
+
+      Foo.hasMany('baz', 'bazes', 'foo_id')
+      Baz.belongsTo('foo', 'foo', 'foo_id')
+
+      Foo.belongsToMany('boz', 'bozes')
+      Boz.belongsToMany('foo', 'foos')
+
+      return requelize.sync()
+    })
+    .then(() => {
+      baz = new Baz({ name: 'baz' })
+      boz = new Boz({ name: 'boz' })
+
+      return Promise.all([ baz.save(), boz.save() ])
+    })
+    .then(() => {
+      foo = new Foo({ name: 'foo' })
+
+      foo.bazes = [ baz.id ]
+      foo.bozes = [ boz.id ]
+
+      return foo.saveAll({
+        bazes: true,
+        bozes: true
+      })
+    })
+    .then(() => {
+      t.equal('string', typeof foo.id, 'foo is saved')
+      t.equal('string', typeof baz.id, 'baz is saved')
+      t.equal('string', typeof boz.id, 'boz is saved')
+
+      // Be careful here : foo.bazes[0] is not the same object as baz because it was recreated from the id
+      // That means baz.foo_id will be undefined whereas foo.bazes[0].foo_id is set
+      t.equal(foo.id, foo.bazes[0].foo_id, 'hasMany relationship')
+
+      return Foo.embed({ bozes: true })
+    })
+    .then((res) => {
+      t.equal(true, Array.isArray(res[0].bozes), 'belongsToMany relationship')
+      t.equal(1, res[0].bozes.length, 'belongsToMany relationship')
+    })
+    .catch((err) => {
+      t.fail(err)
+    })
+    .then(() => {
+      t.end()
+    })
+})
+
 test('instance - resave', (t) => {
   t.plan(2)
 
