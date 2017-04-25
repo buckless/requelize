@@ -14,7 +14,7 @@ yarn add requelize joi
 const requelize = require('requelize')({ host: 'localhost', db: 'myApp' })
 ```
 
-`opts` are passed to [rethinkdbdash](https://github.com/neumino/rethinkdbdash) options
+Options are passed to [rethinkdbdash](https://github.com/neumino/rethinkdbdash) options
 
 ### Debugging
 
