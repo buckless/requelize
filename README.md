@@ -213,14 +213,14 @@ Right
   .get('rightAId')
   .embed({ users: true })
   .then((rightA) => {
-    console.log(rightA.users[0].getPivot('User')) // should be equal
+    console.log(rightA.users[0].getPivot()) // should be equal
   })
 
 User
   .get('userId')
   .embed({ rights: true })
   .then((user) => {
-    console.log(user.rights[0].getPivot('User')) // should be equal
+    console.log(user.rights[0].getPivot()) // should be equal
   })
 ```
 
