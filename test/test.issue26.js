@@ -1,4 +1,4 @@
-const { test, requelize, dropDb } = require('./utils')
+const { test, requelize } = require('./utils')
 
 test('Issue #26', (t) => {
   t.plan(1)
@@ -7,7 +7,8 @@ test('Issue #26', (t) => {
 
   try {
     let foo = new Foo(null)
-    t.pass('object is created with null as initial data')
+
+    t.equal(true, foo.hasOwnProperty('id'), 'instance is created with null as initialData')
   } catch (err) {
     t.fail(err)
   }
