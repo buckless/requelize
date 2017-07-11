@@ -1,6 +1,6 @@
 {
   "name": "requelize",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "RethinkDB ORM",
   "main": "index.js",
   "repository": "https://github.com/buckless/requelize.git",
@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "debug": "^2.6.3",
+    "lodash.isplainobject": "^4.0.6",
     "rethinkdbdash": "^2.3.28",
     "rxjs": "^5.2.0"
   },
