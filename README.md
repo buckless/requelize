@@ -40,6 +40,7 @@ User.index('email')
 ```
 
 You might also pass a third argument to requelize.model that looks like this: `{ primaryKey: string }`
+Primary keys allowed are: guid and integers
 
 ## Querying
 
