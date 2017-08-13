@@ -1,7 +1,7 @@
 const { test, requelize, dropDb } = require('./utils')
 
 test('isSaved', (t) => {
-  t.plan(2)
+  t.plan(4)
 
   let Foo
   let foo
@@ -21,6 +21,14 @@ test('isSaved', (t) => {
     })
     .then(() => {
       t.equal(true, foo.isSaved(), 'isSaved = true after saving')
+
+      return Foo.run()
+    })
+    .then((foos) => {
+      t.equal(true, foos[0].isSaved(), 'isSaved = true on query')
+
+      const newInst = new Foo({ id: 'bar' })
+      t.equal(false, newInst.isSaved(), 'isSaved = false when creating an instance with primaryKey set')
     })
     .catch((err) => {
       t.fail(err)
