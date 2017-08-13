@@ -1,6 +1,6 @@
 const { test, requelize } = require('./utils')
 
-test('Issue #26', (t) => {
+test('Issue #26 - instantiate Model with null as initial data', (t) => {
   t.plan(1)
 
   const Foo = requelize.model('foo')
