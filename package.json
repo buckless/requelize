@@ -17,19 +17,19 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
-    "debug": "^2.6.3",
+    "debug": "^3.1.0",
     "lodash.isplainobject": "^4.0.6",
-    "rethinkdbdash": "^2.3.28",
-    "rxjs": "^5.2.0"
+    "rethinkdbdash": "^2.3.31",
+    "rxjs": "^5.5.3"
   },
   "devDependencies": {
-    "coveralls": "^2.11.16",
+    "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
-    "standard": "^8.6.0",
+    "standard": "^10.0.3",
     "tap-difflet": "^0.7.0",
-    "tape": "^4.6.3"
+    "tape": "^4.8.0"
   },
   "peerDependencies": {
-    "joi": "^10.2.2"
+    "joi": "^13.0.2"
   }
 }
