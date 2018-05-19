@@ -228,7 +228,7 @@ User
 Note: a race condition exists here because of `users[0]` and `rights[0]`.
 A proper way to do it would be to use: `rights.find(right => right.id === rightA.id)`
 
-### Custom joins tables — three-way relationships
+### Custom joins tables - three-way relationships
 
 You can provide your own model to join tables:
 
